@@ -1,14 +1,3 @@
-<?php
-error_reporting(-1);
-
-require_once "class/Beverage.php";
-require_once "class/Beer.php";
-CONST BARNAME = "Le Warzone";
-
-
-$beer = new Beer('duvel', 8,"blond", 3.5, 'froid');
-$cola = new Beverage("noir", 2);
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,13 +8,7 @@ $cola = new Beverage("noir", 2);
     <title>test</title>
 </head>
 <body>
-<h1><?= BARNAME ?></h1>
-
-<p><?= $beer->getInfo() ?></p>
-<p><?= $beer->getAlcoholPercentage() ?>°</p>
-<p><?= $beer->getColor() ?></p>
-<p><?= $beer->getBarName(BARNAME) ?></p>
-<p><?= Beverage::getBarName(BARNAME) ?></p>
-<a href="../app/views/contact.php">Contact</a>
+<h1>Index</h1>
+<a href="/contact">Contact</a>
 </body>
 </html>

@@ -13,6 +13,8 @@ error_reporting(-1);
 </head>
 <body>
 <h1>Me contacter</h1>
+<a href="/">accueil</a>
+
 
 </body>
 </html>

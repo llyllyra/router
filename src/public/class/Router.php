@@ -1,39 +1,32 @@
 <?php
 
-namespace app;
-
 class Router
 {
-    private $url;
-    private  $routes = [];
-
-    /**
-     * @param $url
-     */
-    public function __construct($url)
-    {
-        $this->url = $url;
-    }
-
-
-    public
-    function get($path, $callback)
-    {
-       $route = new Route($path, $collable);
-       $this->routes['GET'][] = $route;
-       return $route;
-    }
-
-    public function run(){
-        if(!isset($this->routes[$_SERVER['REQUEST_METHOD']])){
-            throw new RouterException('REQUEST_METHOD does not exist');
-        }
-        foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $route){
-            if($route->match($this->url)){
-                return $route->call();
-            }
-        }
-        throw new RouterException('No matching routes');
+    private $routes = [];
+    
+    static function route(string $path, callable $callback)
+    : void {
+        global $routes;
+        $routes[$path] = $callback;
     }
     
+    static function run()
+    : void
+    {
+        global $routes;
+        $uri = $_SERVER['REQUEST_URI'];
+        $found = FALSE;
+        foreach ($routes as $path => $callback) {
+            if ($path !== $uri) continue;
+        
+            $found = TRUE;
+            $callback();
+        }
+    
+        if (!$found) {
+            $notFoundCallback = $routes['/404'];
+            $notFoundCallback();
+        }
+    }
+  
 }
